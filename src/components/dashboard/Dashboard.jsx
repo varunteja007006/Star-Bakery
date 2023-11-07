@@ -1,13 +1,8 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
-import {
-  CustomBarChart,
-  CustomCard,
-  CustomCollapse,
-  CustomStats,
-} from "../main/custom";
+import { useState, useEffect } from "react";
+import { CustomCard, CustomCollapse, CustomStats } from "../main/custom";
 import productCost from "../../data/productCost";
+import CustomBarChartContainer from "./CustomBarChartContainer";
 
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -119,11 +114,13 @@ function Dashboard() {
       arrBranchStats.push(obj);
     }
 
-    const totalOrderData = { name: "Total Orders", count: totalOrder };
-    const totalOrderRevenueData = {
-      name: "Total Order Revenue",
-      count: totalSale,
-    };
+    const totalOrderData = [{ name: "Total Orders", count: totalOrder }];
+    const totalOrderRevenueData = [
+      {
+        name: "Total Order Revenue",
+        count: totalSale,
+      },
+    ];
 
     return {
       arrItemTypeStats,
@@ -158,53 +155,49 @@ function Dashboard() {
 
   useEffect(() => {
     getOrders();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
       <h2 className="text-xl font-semibold mb-5">Dashboard</h2>
       {/* stats */}
-      <div className="flex flex-wrap gap-5 items-center mb-5">
+      <div className="flex flex-wrap gap-5 items-center">
         <CustomStats
           label={"Total Revenue"}
           value={`₹ ${salesRevenue}`}
         ></CustomStats>
         <CustomStats label={"Total Order"} value={totalOrder}></CustomStats>
       </div>
-      {/* bar graphs */}
-      <div>
-        <h3 className="text-lg">Top 5 Branches</h3>
-        {branchStats && <CustomBarChart data={branchStats}></CustomBarChart>}
-      </div>
 
-      <span className="grid grid-cols-1 lg:grid-cols-2">
-        <div>
-          <h3 className="text-lg">Total Revenue</h3>
-          {totalOrderRevenueData && (
-            <CustomBarChart data={[totalOrderRevenueData]}></CustomBarChart>
-          )}
-        </div>
-        <div>
-          <h3 className="text-lg">Total Orders</h3>
-          {totalOrderData && (
-            <CustomBarChart data={[totalOrderData]}></CustomBarChart>
-          )}
-        </div>
-      </span>
-      
+      {/* bar graphs */}
+      <CustomBarChartContainer
+        label={"Top 5 Branches"}
+        data={branchStats}
+      ></CustomBarChartContainer>
+
+      <CustomCollapse label={"Total Revenue & Orders"}>
+        <span className="grid grid-cols-1 lg:grid-cols-2 mt-5">
+          <CustomBarChartContainer
+            label={"Total Revenue"}
+            data={totalOrderRevenueData}
+          ></CustomBarChartContainer>
+          <CustomBarChartContainer
+            label={"Total Orders"}
+            data={totalOrderData}
+          ></CustomBarChartContainer>
+        </span>
+      </CustomCollapse>
+
       <CustomCollapse label={"Order Details"}>
-        <div className="mt-5">
-          <h3 className="text-lg">Order Item Types</h3>
-          {itemTypeStats && (
-            <CustomBarChart data={itemTypeStats}></CustomBarChart>
-          )}
-        </div>
-        <div className="mt-5">
-          <h3 className="text-lg ">Order Delivery Status</h3>
-          {orderStateStats && (
-            <CustomBarChart data={orderStateStats}></CustomBarChart>
-          )}
-        </div>
+        <CustomBarChartContainer
+          label={"Order Item Types"}
+          data={itemTypeStats}
+        ></CustomBarChartContainer>
+        <CustomBarChartContainer
+          label={"Order Delivery Status"}
+          data={orderStateStats}
+        ></CustomBarChartContainer>
       </CustomCollapse>
 
       <CustomCollapse label={"Order Cards"}>

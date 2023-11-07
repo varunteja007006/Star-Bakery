@@ -1,7 +1,12 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-import { CustomBarChart, CustomCard, CustomStats } from "../main/custom";
+import {
+  CustomBarChart,
+  CustomCard,
+  CustomCollapse,
+  CustomStats,
+} from "../main/custom";
 import productCost from "../../data/productCost";
 
 function Dashboard() {
@@ -9,6 +14,8 @@ function Dashboard() {
   const [itemTypeStats, setItemTypeStats] = useState([]);
   const [orderStateStats, setOrderStateStats] = useState([]);
   const [branchStats, setBranchStats] = useState([]);
+  const [totalOrderData, setTotalOrderData] = useState([]);
+  const [totalOrderRevenueData, setTotalOrderRevenueData] = useState([]);
   const [salesRevenue, setSalesRevenue] = useState(0);
   const [totalOrder, setTotalOrder] = useState(0);
 
@@ -111,18 +118,38 @@ function Dashboard() {
       obj["count"] = branchStats[element];
       arrBranchStats.push(obj);
     }
-    return { arrItemTypeStats, arrOrderStateStats, arrBranchStats };
+
+    const totalOrderData = { name: "Total Orders", count: totalOrder };
+    const totalOrderRevenueData = {
+      name: "Total Order Revenue",
+      count: totalSale,
+    };
+
+    return {
+      arrItemTypeStats,
+      arrOrderStateStats,
+      arrBranchStats,
+      totalOrderData,
+      totalOrderRevenueData,
+    };
   };
 
   const getOrders = async () => {
     try {
       const response = await axios.get(import.meta.env.VITE_API_URL + `orders`);
       const data = await response.data;
-      const { arrItemTypeStats, arrOrderStateStats, arrBranchStats } =
-        await getStats(data);
+      const {
+        arrItemTypeStats,
+        arrOrderStateStats,
+        arrBranchStats,
+        totalOrderData,
+        totalOrderRevenueData,
+      } = await getStats(data);
       setItemTypeStats(arrItemTypeStats);
       setOrderStateStats(arrOrderStateStats);
       setBranchStats(arrBranchStats);
+      setTotalOrderData(totalOrderData);
+      setTotalOrderRevenueData(totalOrderRevenueData);
       setData(data);
     } catch (error) {
       console.log(error);
@@ -136,7 +163,8 @@ function Dashboard() {
   return (
     <>
       <h2 className="text-xl font-semibold mb-5">Dashboard</h2>
-      <div className="flex flex-wrap gap-5 items-center">
+      {/* stats */}
+      <div className="flex flex-wrap gap-5 items-center mb-5">
         <CustomStats
           label={"Total Revenue"}
           value={`₹ ${salesRevenue}`}
@@ -145,27 +173,48 @@ function Dashboard() {
       </div>
       {/* bar graphs */}
       <div>
-        <h3 className="text-lg">Order Item Types</h3>
-        {itemTypeStats && (
-          <CustomBarChart data={itemTypeStats}></CustomBarChart>
-        )}
-      </div>
-      <div>
-        <h3 className="text-lg">Order Delivery Status</h3>
-        {orderStateStats && (
-          <CustomBarChart data={orderStateStats}></CustomBarChart>
-        )}
-      </div>
-      <div>
         <h3 className="text-lg">Top 5 Branches</h3>
         {branchStats && <CustomBarChart data={branchStats}></CustomBarChart>}
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-5">
-        {data &&
-          data.map((item, index) => {
-            return <CustomCard key={index} {...item}></CustomCard>;
-          })}
-      </div>
+
+      <span className="grid grid-cols-1 lg:grid-cols-2">
+        <div>
+          <h3 className="text-lg">Total Revenue</h3>
+          {totalOrderRevenueData && (
+            <CustomBarChart data={[totalOrderRevenueData]}></CustomBarChart>
+          )}
+        </div>
+        <div>
+          <h3 className="text-lg">Total Orders</h3>
+          {totalOrderData && (
+            <CustomBarChart data={[totalOrderData]}></CustomBarChart>
+          )}
+        </div>
+      </span>
+      
+      <CustomCollapse label={"Order Details"}>
+        <div className="mt-5">
+          <h3 className="text-lg">Order Item Types</h3>
+          {itemTypeStats && (
+            <CustomBarChart data={itemTypeStats}></CustomBarChart>
+          )}
+        </div>
+        <div className="mt-5">
+          <h3 className="text-lg ">Order Delivery Status</h3>
+          {orderStateStats && (
+            <CustomBarChart data={orderStateStats}></CustomBarChart>
+          )}
+        </div>
+      </CustomCollapse>
+
+      <CustomCollapse label={"Order Cards"}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3 mb-5">
+          {data &&
+            data.map((item, index) => {
+              return <CustomCard key={index} {...item}></CustomCard>;
+            })}
+        </div>
+      </CustomCollapse>
     </>
   );
 }

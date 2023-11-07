@@ -5,6 +5,8 @@ import CustomButton from "./CustomButton";
 import CustomCard from "./CustomCard";
 import CustomBarChart from "./CustomBarChart";
 import CustomStats from "./CustomStats";
+import CustomCheckbox from "./CustomCheckbox";
+import CustomCollapse from "./CustomCollapse";
 
 export {
   PageBody,
@@ -14,4 +16,6 @@ export {
   CustomCard,
   CustomBarChart,
   CustomStats,
+  CustomCheckbox,
+  CustomCollapse,
 };

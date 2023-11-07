@@ -4,7 +4,7 @@ import { PageBody } from "../components/main/custom";
 function Home() {
   return (
     <>
-      <PageBody PageTitle={"Home"}>
+      <PageBody>
         <Dashboard></Dashboard>
       </PageBody>
     </>

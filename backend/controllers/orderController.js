@@ -5,7 +5,12 @@ const Order = require("../models/orderModel");
 
 //get all orders
 const getOrders = async (req, res) => {
-  const orders = await Order.find({}).skip(0).limit(1000);
+  const query = req.query;
+  let filter = {};
+  if (query) {
+    filter = { ...query };
+  }
+  const orders = await Order.find(filter).skip(0).limit(1000);
   if (orders) {
     return res.status(200).json(orders);
   } else {

@@ -46,7 +46,7 @@ function Order() {
         <div className="flex flex-col gap-5">
           <div className="w-4/5">
             <form onSubmit={handleOrder}>
-              <span className="grid grid-cols-3 gap-5 items-center">
+              <span className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-center">
                 <CustomSelectBox
                   label={"Item Type"}
                   name={"itemType"}

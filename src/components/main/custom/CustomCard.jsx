@@ -7,7 +7,7 @@ function CustomCard({ itemType, orderState, branch, customerID, updatedAt }) {
   const formattedDate = format(date, "	PPPppp");
   return (
     <>
-      <div className="p-5 border border-gray-500 rounded-md">
+      <div className="p-5 border border-gray-500 rounded-md shadow-lg">
         <span className="flex flex-col flex-wrap gap-3 items-left">
           <span className="flex flex-row flex-wrap gap-5 items-center">
             <p className="text-gray-600 text-lg font-bold capitalize">

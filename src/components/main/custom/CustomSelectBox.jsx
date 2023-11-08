@@ -8,7 +8,7 @@ function CustomSelectBox({ label, options, name, id }) {
       <select name={name} id={id} className="select select-bordered capitalize">
         <option value={""}>None</option>
         {options &&
-          options.map((item, index) => {
+          options?.map((item, index) => {
             return (
               <option key={index} value={item}>
                 {item}

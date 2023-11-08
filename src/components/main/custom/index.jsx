@@ -7,6 +7,7 @@ import CustomBarChart from "./CustomBarChart";
 import CustomStats from "./CustomStats";
 import CustomCheckbox from "./CustomCheckbox";
 import CustomCollapse from "./CustomCollapse";
+import CustomSkeleton from "./CustomSkeleton";
 
 export {
   PageBody,
@@ -18,4 +19,5 @@ export {
   CustomStats,
   CustomCheckbox,
   CustomCollapse,
+  CustomSkeleton,
 };

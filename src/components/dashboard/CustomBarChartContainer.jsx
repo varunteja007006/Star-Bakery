@@ -7,7 +7,7 @@ function CustomBarChartContainer({ label, data }) {
       {data ? (
         <>
           <h3 className="text-lg">{label}</h3>
-          <CustomBarChart data={data}></CustomBarChart>
+          <CustomBarChart data={data} ></CustomBarChart>
         </>
       ) : (
         <>Oops, something went wrong....</>

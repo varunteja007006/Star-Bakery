@@ -3,11 +3,11 @@ import { PageBody } from "../components/main/custom";
 
 function Home() {
   return (
-    <>
-      <PageBody>
+    <PageBody>
+      <div className="min-h-screen py-10">
         <Dashboard></Dashboard>
-      </PageBody>
-    </>
+      </div>
+    </PageBody>
   );
 }
 

@@ -17,7 +17,7 @@ function CustomBarChart({ data }) {
         <XAxis dataKey="name" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Bar dataKey="count" fill="#b775ff" barSize={75} />
+        <Bar dataKey={"count"} fill="#b775ff" barSize={75} />
       </BarChart>
     </ResponsiveContainer>
   );

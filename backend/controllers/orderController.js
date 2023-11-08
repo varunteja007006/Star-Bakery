@@ -7,10 +7,27 @@ const Order = require("../models/orderModel");
 const getOrders = async (req, res) => {
   const query = req.query;
   let filter = {};
-  if (query) {
-    filter = { ...query };
+  if (query.time) {
+    const date = new Date(query.time);
+    const today = new Date();
+    filter = {
+      ...filter,
+      createdAt: {
+        $gte: date,
+        $lt: today,
+      },
+    };
   }
-  const orders = await Order.find(filter).skip(0).limit(1000);
+  if (query.orderState) {
+    filter = { ...filter, orderState: query.orderState };
+  }
+  if (query.itemType) {
+    filter = { ...filter, itemType: query.itemType };
+  }
+  const orders = await Order.find(filter)
+    .skip(query.skip)
+    .limit(query.limit)
+    .sort(query.sort);
   if (orders) {
     return res.status(200).json(orders);
   } else {

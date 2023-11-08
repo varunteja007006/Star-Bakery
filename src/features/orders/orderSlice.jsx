@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import getStats from "./getStats";
@@ -6,14 +7,14 @@ const initialFiltersState = {
   itemTypeFilter: "",
   orderStateFilter: "",
   time: "",
+  skip: 0,
+  limit: 0,
+  sort: -1,
 };
 
 const initialState = {
   isLoading: true,
   orders: [],
-  skip: 0,
-  limit: 0,
-  sort: -1,
   itemTypeStats: [""],
   orderStateStats: [""],
   branchStats: [""],
@@ -21,7 +22,7 @@ const initialState = {
   totalOrdersData: [""],
   totalRevenue: 0,
   totalRevenueData: [""],
-  itemTypeOptions: ["cake", "cookies", "muffin"],
+  itemTypeOptions: ["cake", "cookies", "muffins"],
   orderStateOptions: ["created", "shipped", "delivered", "canceled"],
   ...initialFiltersState,
 };
@@ -29,17 +30,31 @@ const initialState = {
 export const getAllOrders = createAsyncThunk(
   "dashboard/allOrders",
   async (_, thunkAPI) => {
-    const { skip, limit, time, itemTypeFilter, orderStateFilter, sort } =
-      thunkAPI.getState().allOrders;
-
-    let url =
-      import.meta.env.VITE_API_URL +
-      `orders?skip=${skip}&limit=${limit}&time=${time}&orderState=${itemTypeFilter}&itemType=${orderStateFilter}&sort=${sort}`;
+    let url = import.meta.env.VITE_API_URL + `orders`;
 
     try {
       const response = await axios.get(url);
       const data = await response.data;
       return { orders: data, stats: getStats(data) };
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+export const getOrdersByFilter = createAsyncThunk(
+  "dashboard/filteredOrders",
+  async (_, thunkAPI) => {
+    const { skip, limit, time, itemTypeFilter, orderStateFilter, sort } =
+      thunkAPI.getState().allOrders;
+    let url =
+      import.meta.env.VITE_API_URL +
+      `orders?skip=${skip}&limit=${limit}&time=${time}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
+
+    try {
+      const response = await axios.get(url);
+      const data = await response.data;
+      return { filteredOrders: data, filteredStats: getStats(data) };
     } catch (error) {
       console.log(error);
     }
@@ -72,6 +87,7 @@ const ordersSlice = createSlice({
         const { orders, stats } = { ...payload };
         state.isLoading = false;
         state.orders = orders;
+        // console.log(stats);
         state.itemTypeStats = stats.itemTypeStats;
         state.orderStateStats = stats.orderStateStats;
         state.branchStats = stats.branchStats;
@@ -81,6 +97,21 @@ const ordersSlice = createSlice({
         state.totalRevenueData = stats.totalRevenueData;
       })
       .addCase(getAllOrders.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        console.log(payload);
+      })
+      .addCase(getOrdersByFilter.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrdersByFilter.fulfilled, (state, { payload }) => {
+        const { filteredOrders, filteredStats } = { ...payload };
+        state.isLoading = false;
+        state.orders = filteredOrders;
+        state.itemTypeStats = filteredStats.itemTypeStats;
+        state.orderStateStats = filteredStats.orderStateStats;
+        console.log(filteredStats);
+      })
+      .addCase(getOrdersByFilter.rejected, (state, { payload }) => {
         state.isLoading = false;
         console.log(payload);
       });

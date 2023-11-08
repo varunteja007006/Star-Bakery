@@ -35,6 +35,7 @@ function getCount(elementCount, item) {
 
 function modifyToArray(elementCount) {
   let newArr = [];
+  // const elementArr = Object.keys(elementCount);
   for (let item in elementCount) {
     newArr.push({ name: [item], count: elementCount[item] });
   }

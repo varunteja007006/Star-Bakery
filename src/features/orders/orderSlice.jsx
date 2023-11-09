@@ -5,7 +5,8 @@ import axios from "axios";
 const initialFiltersState = {
   itemTypeFilter: "",
   orderStateFilter: "",
-  time: "",
+  startDate: "",
+  endDate: "",
   skip: 0,
   limit: 0,
   sort: -1,
@@ -44,11 +45,21 @@ export const getAllOrders = createAsyncThunk(
 export const getOrdersByFilter = createAsyncThunk(
   "dashboard/filteredOrders",
   async (_, thunkAPI) => {
-    const { skip, limit, time, itemTypeFilter, orderStateFilter, sort } =
-      thunkAPI.getState().allOrders;
+    const {
+      skip,
+      limit,
+      startDate,
+      endDate,
+      itemTypeFilter,
+      orderStateFilter,
+      sort,
+    } = thunkAPI.getState().allOrders;
+
     let url =
       import.meta.env.VITE_API_URL +
-      `orders?skip=${skip}&limit=${limit}&time=${time}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
+      `orders?skip=${skip}&limit=${limit}&startDate=${startDate}&endDate=${endDate}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
+
+    console.log(url);
 
     try {
       const response = await axios.get(url);
@@ -107,7 +118,6 @@ const ordersSlice = createSlice({
         state.orders = filteredOrders;
         state.itemTypeStats = filteredStats.itemTypeStats;
         state.orderStateStats = filteredStats.orderStateStats;
-        console.log(filteredStats);
       })
       .addCase(getOrdersByFilter.rejected, (state, { payload }) => {
         state.isLoading = false;

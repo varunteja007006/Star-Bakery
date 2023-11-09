@@ -7,6 +7,7 @@ import {
   CustomSkeleton,
   CustomSelectBox,
   CustomAlert,
+  CustomDatePicker,
 } from "../main/custom";
 import CustomBarChartContainer from "./CustomBarChartContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,10 +19,15 @@ import {
 
 function Dashboard() {
   const {
+    // filter data state values
     itemTypeFilter,
     orderStateFilter,
+    startDate,
+    endDate,
+    // static data state values
     itemTypeOptions,
     orderStateOptions,
+    // data state values
     orders,
     isLoading,
     totalOrders,
@@ -32,8 +38,12 @@ function Dashboard() {
     orderStateStats,
     branchStats,
   } = useSelector((store) => store.allOrders);
-
   const dispatch = useDispatch();
+
+  // handle the filtering dates
+  const handleValueChange = (newValue) => {
+    dispatch(addFilters(newValue));
+  };
 
   // to handle the filter form
   const handleFilterForm = (e) => {
@@ -41,7 +51,6 @@ function Dashboard() {
     const formData = new FormData(e.currentTarget);
     const filters = Object.fromEntries(formData);
     e.currentTarget.reset();
-
     // dispatch the action and thunk API for filters
     dispatch(addFilters(filters));
     dispatch(getOrdersByFilter());
@@ -66,22 +75,11 @@ function Dashboard() {
     );
   }
 
-  //   if orders are 0
-  if (orders.length === 0) {
-    return (
-      <CustomAlert
-        content={"No data found"}
-        alertType={"alert-warning"}
-      ></CustomAlert>
-    );
-  }
-
   // if orders are available
   return (
     <>
       <span className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
         <h2 className="text-xl font-semibold mb-5">Dashboard</h2>
-
         <CustomButton
           label={"filter"}
           btnBGColor={"bg-purple-300"}
@@ -98,8 +96,17 @@ function Dashboard() {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">Select Filters</h3>
-            <form onSubmit={handleFilterForm}>
+            <h3 className="font-bold text-lg mb-5">Select Filters</h3>
+            <form
+              onSubmit={handleFilterForm}
+              className="flex flex-col justify-around "
+            >
+              <CustomDatePicker
+                label="Filter by dates"
+                value={{ startDate, endDate }}
+                handleValueChange={handleValueChange}
+              ></CustomDatePicker>
+
               <CustomSelectBox
                 name={"itemTypeFilter"}
                 id={"itemTypeFilter"}
@@ -114,17 +121,19 @@ function Dashboard() {
                 value={orderStateFilter}
                 options={orderStateOptions}
               ></CustomSelectBox>
-              <CustomButton
-                type={"submit"}
-                label={"Apply Filters"}
-                btnBGColor={"bg-green-300"}
-                customClass={"btn mt-5 hover:bg-green-400"}
-              ></CustomButton>
-              <CustomButton
-                label={"Clear Filters"}
-                btnBGColor={"bg-red-300"}
-                customClass={"btn mt-5 hover:bg-red-400"}
-              ></CustomButton>
+              <span className="gap-5 items-center flex flex-col lg:flex-row">
+                <CustomButton
+                  type={"submit"}
+                  label={"Apply Filters"}
+                  btnBGColor={"bg-green-300"}
+                  customClass={"btn mt-5 hover:bg-green-400  w-fit"}
+                ></CustomButton>
+                <CustomButton
+                  label={"Clear Filters"}
+                  btnBGColor={"bg-red-300"}
+                  customClass={"btn hover:bg-red-400 m-0 w-fit"}
+                ></CustomButton>
+              </span>
             </form>
           </div>
         </dialog>
@@ -143,6 +152,7 @@ function Dashboard() {
         data={branchStats}
       ></CustomBarChartContainer>
       <CustomCollapse label={"Total Revenue & Orders"}>
+        {}
         <span className="grid grid-cols-1 lg:grid-cols-2 mt-5">
           <CustomBarChartContainer
             label={"Total Revenue"}
@@ -154,28 +164,43 @@ function Dashboard() {
           ></CustomBarChartContainer>
         </span>
       </CustomCollapse>
-      <CustomCollapse label={"Order Details"}>
-        <CustomBarChartContainer
-          label={"Order Item Types"}
-          data={itemTypeStats}
-        ></CustomBarChartContainer>
-        <CustomBarChartContainer
-          label={"Order Status"}
-          data={orderStateStats}
-        ></CustomBarChartContainer>
-      </CustomCollapse>
-      {/* Order cards */}
-      <CustomCollapse customClass={"mb-0"} label={`Orders - ${orders.length}`}>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3 mb-5">
-          {orders.length > 0 ? (
-            orders.map((item, index) => {
-              return <CustomCard key={index} {...item}></CustomCard>;
-            })
-          ) : (
-            <CustomSkeleton></CustomSkeleton>
-          )}
-        </div>
-      </CustomCollapse>
+
+      {/* render data depending on number of orders */}
+
+      {orders.length === 0 ? (
+        <CustomAlert
+          content={"No data found"}
+          alertType={"alert-warning"}
+        ></CustomAlert>
+      ) : (
+        <span>
+          <CustomCollapse label={"Order Details"}>
+            <CustomBarChartContainer
+              label={"Order Item Types"}
+              data={itemTypeStats}
+            ></CustomBarChartContainer>
+            <CustomBarChartContainer
+              label={"Order Status"}
+              data={orderStateStats}
+            ></CustomBarChartContainer>
+          </CustomCollapse>
+          {/* Order cards */}
+          <CustomCollapse
+            customClass={"mb-0"}
+            label={`Orders - ${orders.length}`}
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3 mb-5">
+              {orders.length > 0 ? (
+                orders.map((item, index) => {
+                  return <CustomCard key={index} {...item}></CustomCard>;
+                })
+              ) : (
+                <CustomSkeleton></CustomSkeleton>
+              )}
+            </div>
+          </CustomCollapse>
+        </span>
+      )}
     </>
   );
 }

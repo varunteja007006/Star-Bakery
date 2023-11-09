@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 
+// custom date picker widget
 import Datepicker from "react-tailwindcss-datepicker";
+
 function CustomDatePicker({ label, value, handleValueChange }) {
   return (
     <div className="form-control w-full max-w-xs">
@@ -14,9 +16,7 @@ function CustomDatePicker({ label, value, handleValueChange }) {
         value={value}
         onChange={handleValueChange}
         separator={"to"}
-        // asSingle={true}
         useRange={false}
-        // showShortcuts={true}
       />
     </div>
   );

@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 
 // Custom stats card
-function CustomStats({ value, label, description }) {
+function CustomStats({ value, label, description, customClass }) {
   return (
-    <div className="stats bg-sky-300 shadow">
+    <div className={`stats shadow ${customClass ? "" : "bg-sky-300 "}`}>
       <div className="stat">
-        {label && <div className="stat-title">{label}</div>}
+        {label && <div className="stat-title text-black">{label}</div>}
 
         {value && <div className="stat-value">{value}</div>}
 

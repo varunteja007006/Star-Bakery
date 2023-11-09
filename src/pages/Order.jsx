@@ -41,7 +41,8 @@ function Order() {
   return (
     <PageBody PageTitle={"Create Order"}>
       <div className="flex flex-col gap-5">
-        <div className="w-4/5">
+        {/* create order form */}
+        <div>
           <form onSubmit={handleOrder}>
             <span className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-center">
               <CustomSelectBox
@@ -77,6 +78,7 @@ function Order() {
             ></CustomButton>
           </form>
         </div>
+        {/* newly added data */}
         <div className="mb-5 flex flex-wrap">
           {data && (
             <CustomCard

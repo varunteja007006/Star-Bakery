@@ -17,11 +17,10 @@ function CustomCard({
 
   return (
     <div className="p-5 bg-sky-200 border border-gray-500 rounded-md shadow-lg">
-      <span className="flex flex-col flex-wrap gap-3 items-left">
-        <span className="flex flex-row flex-wrap gap-5 items-center">
-          <p className="text-gray-600 text-lg font-bold capitalize">
-            {customerID}
-          </p>
+      <div className="flex flex-col flex-wrap gap-3 items-left">
+        {/* card header */}
+        <div className="flex flex-row flex-wrap gap-5 items-center">
+          <p className="text-lg font-bold capitalize">{customerID}</p>
           <div className="badge bg-yellow-300 p-3 font-semibold">
             {itemType}
           </div>
@@ -30,20 +29,22 @@ function CustomCard({
               {badgeText}
             </div>
           )}
-        </span>
+        </div>
+        {/* card body */}
         <div className="join join-vertical">
-          <p className="text-gray-600 text-sm me-1 font-bold">Branch:</p>
-          <p className="text-gray-600 text-lg capitalize">{branch}</p>
+          <p className="text-sm me-1 font-bold">Branch:</p>
+          <p className="text-lg capitalize">{branch}</p>
         </div>
         <div className="join join-vertical">
-          <p className="text-gray-600 text-sm me-1 font-bold">Order Status:</p>
-          <p className="text-gray-600 text-lg capitalize"> {orderState}</p>
+          <p className="text-sm me-1 font-bold">Order Status:</p>
+          <p className="text-lg capitalize"> {orderState}</p>
         </div>
+        {/* card footer */}
         <div className="join join-vertical">
-          <p className="text-gray-600 text-sm me-1">Last Modified Date: </p>
-          <p className="text-gray-600 text-sm"> {formattedDate}</p>
+          <p className="text-gray-800 text-sm me-1">Last Modified Date: </p>
+          <p className="text-gray-800 text-sm"> {formattedDate}</p>
         </div>
-      </span>
+      </div>
     </div>
   );
 }

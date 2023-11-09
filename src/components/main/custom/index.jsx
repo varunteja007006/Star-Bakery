@@ -5,7 +5,6 @@ import CustomButton from "./CustomButton";
 import CustomCard from "./CustomCard";
 import CustomBarChart from "./CustomBarChart";
 import CustomStats from "./CustomStats";
-import CustomCheckbox from "./CustomCheckbox";
 import CustomCollapse from "./CustomCollapse";
 import CustomSkeleton from "./CustomSkeleton";
 import CustomAlert from "./CustomAlert";
@@ -20,7 +19,6 @@ export {
   CustomCard,
   CustomBarChart,
   CustomStats,
-  CustomCheckbox,
   CustomCollapse,
   CustomSkeleton,
   CustomAlert,

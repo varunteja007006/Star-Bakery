@@ -4,7 +4,7 @@ function Navbar() {
   return (
     <div className="navbar bg-sky-300">
       <div className="flex-1">
-        <NavLink to={"/"} className="btn btn-ghost normal-case text-xl">
+        <NavLink to={"/"} className="btn btn-ghost normal-case text-2xl">
           Star Bakery ⭐
         </NavLink>
       </div>
@@ -18,7 +18,6 @@ function Navbar() {
               Create Order
             </NavLink>
           </li>
-          <li></li>
         </ul>
       </div>
     </div>

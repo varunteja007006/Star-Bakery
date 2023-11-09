@@ -1,17 +1,31 @@
 /* eslint-disable react/prop-types */
 
-// Custom accordian
+import { useState } from "react";
+
+// Custom accordian/collapse
 function CustomCollapse({ label, children, customClass }) {
+  const [showContent, setShowContent] = useState(true);
+
   return (
-    <div
-      className={`collapse my-5 border border-sky-300 shadow-md ${customClass}`}
-    >
-      <input type="checkbox" />
-      <div className="collapse-title bg-sky-300 text-xl font-medium shadow-sm">
-        {label}
+    <>
+      {/* mine */}
+      <div
+        className={`collapse collapse-arrow my-5 border border-sky-300 shadow-md ${customClass} ${
+          showContent ? "collapse-open" : "collapse-close"
+        }`}
+      >
+        <input
+          type="checkbox"
+          onChange={() => {
+            setShowContent(!showContent);
+          }}
+        />
+        <div className="collapse-title bg-sky-300 text-xl font-medium shadow-sm">
+          {label}
+        </div>
+        <div className="collapse-content">{children}</div>
       </div>
-      <div className="collapse-content">{children}</div>
-    </div>
+    </>
   );
 }
 

@@ -3,8 +3,8 @@ import { PageBody } from "../components/main/custom";
 
 function Home() {
   return (
-    <PageBody>
-        <Dashboard></Dashboard>
+    <PageBody PageTitle={"Dashboard"}>
+      <Dashboard></Dashboard>
     </PageBody>
   );
 }

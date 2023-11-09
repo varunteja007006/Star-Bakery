@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import { CustomBarChart } from ".";
+
+// Custom bar chart container to give headings for the bar chart
+
+import { CustomAlert, CustomBarChart } from ".";
 
 function CustomBarChartContainer({ label, data }) {
   return (
@@ -10,7 +13,10 @@ function CustomBarChartContainer({ label, data }) {
           <CustomBarChart data={data} barColor="#0369a1"></CustomBarChart>
         </>
       ) : (
-        <>Oops, something went wrong....</>
+        <CustomAlert
+          content="Oops something went wrong"
+          alertType={"alert-warning"}
+        />
       )}
     </div>
   );

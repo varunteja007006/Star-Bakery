@@ -2,6 +2,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+const dummy = { name: "No data", count: 0 };
+
 const initialFiltersState = {
   itemTypeFilter: "",
   orderStateFilter: "",
@@ -15,15 +17,15 @@ const initialFiltersState = {
 const initialState = {
   isLoading: true,
   orders: [],
-  itemTypeStats: [""],
-  orderStateStats: [""],
-  branchStats: [""],
+  itemTypeStats: [dummy],
+  orderStateStats: [dummy],
+  branchStats: [dummy],
   totalOrders: 0,
-  totalOrdersData: [""],
+  totalOrdersData: [dummy],
   totalRevenue: 0,
-  totalRevenueData: [""],
+  totalRevenueData: [dummy],
   itemTypeOptions: ["cake", "cookies", "muffins"],
-  orderStateOptions: ["created", "shipped", "delivered", "canceled"],
+  orderStateOptions: ["created", "shipped", "delivered", "cancelled"],
   ...initialFiltersState,
 };
 
@@ -31,7 +33,11 @@ const initialState = {
 export const getAllOrders = createAsyncThunk(
   "dashboard/allOrders",
   async (_, thunkAPI) => {
-    let url = import.meta.env.VITE_API_URL + `orders`;
+    const { skip, limit, sort } = thunkAPI.getState().allOrders;
+
+    let url =
+      import.meta.env.VITE_API_URL +
+      `orders?skip=${skip}&limit=${limit}&sort=${sort}`;
 
     try {
       const response = await axios.get(url);

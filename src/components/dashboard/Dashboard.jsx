@@ -42,7 +42,7 @@ function Dashboard() {
   } = useSelector((store) => store.allOrders);
   const dispatch = useDispatch();
 
-  const [showStats, setShowStats] = useState(false);
+  const [showStats, setShowStats] = useState(true);
 
   // handle the FILTER DATES
   const handleValueChange = (newValue) => {
@@ -82,8 +82,10 @@ function Dashboard() {
   // if orders are available
   return (
     <>
+      {/* Page menu */}
+
       <div className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
-        <h2 className="text-xl font-semibold">Dashboard</h2>
+        <div></div>
         <div>
           <CustomButton
             label={showStats ? "Hide stats" : "Show stats"}
@@ -154,39 +156,42 @@ function Dashboard() {
           </dialog>
         </div>
       </div>
+
       {/* stats */}
 
       {showStats && (
-        <div>
-          <div className="flex flex-wrap gap-5 items-center">
-            <CustomStats
-              label={"Total Revenue"}
-              value={`₹ ${totalRevenue}`}
-            ></CustomStats>
-            <CustomStats
-              label={"Total Orders"}
-              value={totalOrders}
-            ></CustomStats>
+        <div className="border border-gray-400 p-2 md:p-5 rounded-lg shadow-md">
+          <h2 className="text-xl mb-5">Stats</h2>
+          <div>
+            <div className="flex flex-wrap gap-5 items-center">
+              <CustomStats
+                label={"Total Revenue"}
+                value={`₹ ${totalRevenue}`}
+              ></CustomStats>
+              <CustomStats
+                label={"Total Orders"}
+                value={`${totalOrders}`}
+              ></CustomStats>
+            </div>
+            {/* bar graph top 5 branches */}
+            <CustomBarChartContainer
+              label={"Top 5 Branches"}
+              data={branchStats}
+            ></CustomBarChartContainer>
           </div>
-          {/* bar graphs */}
-          <CustomBarChartContainer
-            label={"Top 5 Branches"}
-            data={branchStats}
-          ></CustomBarChartContainer>
         </div>
       )}
 
       {/* Stats for filter  */}
 
-      <CustomCollapse label={"Total Revenue & Orders"}>
-        {}
-        <span className="grid grid-cols-1 lg:grid-cols-2 mt-5">
+      <CustomCollapse label={"Revenue & Orders"}>
+        <span className="grid grid-cols-1 lg:grid-cols-2">
           <CustomBarChartContainer
-            label={"Total Revenue"}
+            label={"Revenue"}
             data={totalRevenueData}
           ></CustomBarChartContainer>
           <CustomBarChartContainer
-            label={"Total Orders"}
+            label={"Orders"}
             data={totalOrdersData}
           ></CustomBarChartContainer>
         </span>

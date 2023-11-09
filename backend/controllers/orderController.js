@@ -42,11 +42,13 @@ const getOrders = async (req, res) => {
     filter = { ...filter, itemType: query.itemType };
   }
 
+  let sort = { updatedAt: query.sort, createdAt: query.sort };
+
   // fetch the order
   const orders = await Order.find(filter)
     .skip(query.skip)
     .limit(query.limit)
-    .sort(query.sort);
+    .sort(sort);
 
   if (orders) {
     const stats = getStats(orders);

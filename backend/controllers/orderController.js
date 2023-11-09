@@ -10,8 +10,12 @@ const getOrders = async (req, res) => {
   let filter = {};
   // if startDate and endDate query exists
   if (query.startDate || query.endDate) {
+    const today = new Date();
     let fromDate = new Date(query.startDate);
     let toDate = new Date(query.endDate);
+
+    // if toDate modified to current time
+    toDate.setHours(today.getHours(), today.getMinutes(), today.getSeconds());
 
     if (query.startDate == query.endDate) {
       toDate.setHours(toDate.getHours() + 24);

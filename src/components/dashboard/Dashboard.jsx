@@ -15,6 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFilters,
+  clearFilters,
   getAllOrders,
   getOrdersByFilter,
 } from "../../features/orders/orderSlice";
@@ -146,9 +147,14 @@ function Dashboard() {
                     customClass={"btn mt-5 hover:bg-green-400  w-fit"}
                   ></CustomButton>
                   <CustomButton
+                    type={"button"}
                     label={"Clear Filters"}
                     btnBGColor={"bg-red-300"}
                     customClass={"btn hover:bg-red-400 m-0 w-fit"}
+                    handleFunction={() => {
+                      dispatch(clearFilters());
+                      dispatch(getOrdersByFilter());
+                    }}
                   ></CustomButton>
                 </span>
               </form>

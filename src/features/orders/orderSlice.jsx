@@ -37,7 +37,7 @@ export const getAllOrders = createAsyncThunk(
 
     let url =
       import.meta.env.VITE_API_URL +
-      `orders?skip=${skip}&limit=${limit}&sort=${sort}`;
+      `/api/orders?skip=${skip}&limit=${limit}&sort=${sort}`;
 
     try {
       const response = await axios.get(url);
@@ -65,7 +65,7 @@ export const getOrdersByFilter = createAsyncThunk(
 
     let url =
       import.meta.env.VITE_API_URL +
-      `orders?skip=${skip}&limit=${limit}&startDate=${startDate}&endDate=${endDate}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
+      `/api/orders?skip=${skip}&limit=${limit}&startDate=${startDate}&endDate=${endDate}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
 
     try {
       const response = await axios.get(url);

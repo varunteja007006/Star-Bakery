@@ -16,7 +16,7 @@ PORT can be modified as per the liking, MONGO_URI can be taken from mongodb.com.
 
 **Requirements to run the frontend**
 
-    VITE_API_URL = 'http://localhost:4000/api/'
+    VITE_API_URL = 'http://localhost:4000'
 
 The port number should match with the backend port number.
 

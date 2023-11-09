@@ -19,7 +19,7 @@ function Order() {
   const createOrder = async (newOrder) => {
     try {
       const response = await axios.post(
-        import.meta.env.VITE_API_URL + `orders`,
+        import.meta.env.VITE_API_URL + `/api/orders`,
         { ...newOrder }
       );
       const data = await response.data;

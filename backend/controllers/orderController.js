@@ -41,7 +41,7 @@ const getOrders = async (req, res) => {
   if (query.itemType) {
     filter = { ...filter, itemType: query.itemType };
   }
-  console.log(filter);
+
   // fetch the order
   const orders = await Order.find(filter)
     .skip(query.skip)

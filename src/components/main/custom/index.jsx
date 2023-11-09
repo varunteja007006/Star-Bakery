@@ -10,6 +10,7 @@ import CustomCollapse from "./CustomCollapse";
 import CustomSkeleton from "./CustomSkeleton";
 import CustomAlert from "./CustomAlert";
 import CustomDatePicker from "./CustomDatePicker";
+import CustomBarChartContainer from "./CustomBarChartContainer";
 
 export {
   PageBody,
@@ -24,4 +25,5 @@ export {
   CustomSkeleton,
   CustomAlert,
   CustomDatePicker,
+  CustomBarChartContainer,
 };

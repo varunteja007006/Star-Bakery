@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import {
   CustomButton,
   CustomCard,
@@ -8,8 +9,9 @@ import {
   CustomSelectBox,
   CustomAlert,
   CustomDatePicker,
+  CustomBarChartContainer,
 } from "../main/custom";
-import CustomBarChartContainer from "./CustomBarChartContainer";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   addFilters,
@@ -40,12 +42,14 @@ function Dashboard() {
   } = useSelector((store) => store.allOrders);
   const dispatch = useDispatch();
 
-  // handle the filtering dates
+  const [showStats, setShowStats] = useState(false);
+
+  // handle the FILTER DATES
   const handleValueChange = (newValue) => {
     dispatch(addFilters(newValue));
   };
 
-  // to handle the filter form
+  // to handle the FILTER FORM
   const handleFilterForm = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -69,7 +73,7 @@ function Dashboard() {
         <progress className="progress w-56 mb-5"></progress>
         <CustomAlert
           content={"Please wait while we fetch your data"}
-          alertType={"bg-purple-200"}
+          alertType={"bg-sky-200"}
         ></CustomAlert>
       </div>
     );
@@ -78,79 +82,102 @@ function Dashboard() {
   // if orders are available
   return (
     <>
-      <span className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
-        <h2 className="text-xl font-semibold mb-5">Dashboard</h2>
-        <CustomButton
-          label={"filter"}
-          btnBGColor={"bg-purple-300"}
-          customClass={"btn-sm mt-0 hover:bg-purple-400 "}
-          handleFunction={() =>
-            document.getElementById("filter_modal").showModal()
-          }
-        ></CustomButton>
-        <dialog id="filter_modal" className="modal">
-          <div className="modal-box">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-            </form>
-            <h3 className="font-bold text-lg mb-5">Select Filters</h3>
-            <form
-              onSubmit={handleFilterForm}
-              className="flex flex-col justify-around "
-            >
-              <CustomDatePicker
-                label="Filter by dates"
-                value={{ startDate, endDate }}
-                handleValueChange={handleValueChange}
-              ></CustomDatePicker>
+      <div className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
+        <h2 className="text-xl font-semibold">Dashboard</h2>
+        <div>
+          <CustomButton
+            label={showStats ? "Hide stats" : "Show stats"}
+            btnBGColor={"bg-yellow-300"}
+            customClass={"btn-sm m-0 me-5 hover:bg-yellow-400"}
+            handleFunction={() => {
+              setShowStats(!showStats);
+            }}
+          ></CustomButton>
 
-              <CustomSelectBox
-                name={"itemTypeFilter"}
-                id={"itemTypeFilter"}
-                label={"Item Type"}
-                value={itemTypeFilter}
-                options={itemTypeOptions}
-              ></CustomSelectBox>
-              <CustomSelectBox
-                name={"orderStateFilter"}
-                id={"orderStateFilter"}
-                label={"Order Status"}
-                value={orderStateFilter}
-                options={orderStateOptions}
-              ></CustomSelectBox>
-              <span className="gap-5 items-center flex flex-col lg:flex-row">
-                <CustomButton
-                  type={"submit"}
-                  label={"Apply Filters"}
-                  btnBGColor={"bg-green-300"}
-                  customClass={"btn mt-5 hover:bg-green-400  w-fit"}
-                ></CustomButton>
-                <CustomButton
-                  label={"Clear Filters"}
-                  btnBGColor={"bg-red-300"}
-                  customClass={"btn hover:bg-red-400 m-0 w-fit"}
-                ></CustomButton>
-              </span>
-            </form>
-          </div>
-        </dialog>
-      </span>
-      {/* stats */}
-      <div className="flex flex-wrap gap-5 items-center">
-        <CustomStats
-          label={"Total Revenue"}
-          value={`₹ ${totalRevenue}`}
-        ></CustomStats>
-        <CustomStats label={"Total Orders"} value={totalOrders}></CustomStats>
+          <CustomButton
+            label={"filter"}
+            btnBGColor={"bg-sky-300"}
+            customClass={"btn-sm m-0 hover:bg-sky-400"}
+            handleFunction={() => {
+              document.getElementById("filter_modal").showModal();
+              setShowStats(false);
+            }}
+          ></CustomButton>
+          <dialog id="filter_modal" className="modal">
+            <div className="modal-box">
+              <form method="dialog">
+                {/* if there is a button in form, it will close the modal */}
+                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                  ✕
+                </button>
+              </form>
+              <h3 className="font-bold text-lg mb-5">Select Filters</h3>
+              <form
+                onSubmit={handleFilterForm}
+                className="flex flex-col justify-around "
+              >
+                <CustomDatePicker
+                  label="Filter by dates"
+                  value={{ startDate, endDate }}
+                  handleValueChange={handleValueChange}
+                ></CustomDatePicker>
+
+                <CustomSelectBox
+                  name={"itemTypeFilter"}
+                  id={"itemTypeFilter"}
+                  label={"Item Type"}
+                  value={itemTypeFilter}
+                  options={itemTypeOptions}
+                ></CustomSelectBox>
+                <CustomSelectBox
+                  name={"orderStateFilter"}
+                  id={"orderStateFilter"}
+                  label={"Order Status"}
+                  value={orderStateFilter}
+                  options={orderStateOptions}
+                ></CustomSelectBox>
+                <span className="gap-5 items-center flex flex-col lg:flex-row">
+                  <CustomButton
+                    type={"submit"}
+                    label={"Apply Filters"}
+                    btnBGColor={"bg-green-300"}
+                    customClass={"btn mt-5 hover:bg-green-400  w-fit"}
+                  ></CustomButton>
+                  <CustomButton
+                    label={"Clear Filters"}
+                    btnBGColor={"bg-red-300"}
+                    customClass={"btn hover:bg-red-400 m-0 w-fit"}
+                  ></CustomButton>
+                </span>
+              </form>
+            </div>
+          </dialog>
+        </div>
       </div>
-      {/* bar graphs */}
-      <CustomBarChartContainer
-        label={"Top 5 Branches"}
-        data={branchStats}
-      ></CustomBarChartContainer>
+      {/* stats */}
+
+      {showStats && (
+        <div>
+          <div className="flex flex-wrap gap-5 items-center">
+            <CustomStats
+              label={"Total Revenue"}
+              value={`₹ ${totalRevenue}`}
+            ></CustomStats>
+            <CustomStats
+              label={"Total Orders"}
+              value={totalOrders}
+            ></CustomStats>
+          </div>
+          {/* bar graphs */}
+          <CustomBarChartContainer
+            label={"Top 5 Branches"}
+            data={branchStats}
+          ></CustomBarChartContainer>
+        </div>
+      )}
+
+      {/* Stats for filter  */}
+
       <CustomCollapse label={"Total Revenue & Orders"}>
         {}
         <span className="grid grid-cols-1 lg:grid-cols-2 mt-5">

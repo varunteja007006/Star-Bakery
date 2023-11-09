@@ -3,7 +3,7 @@
 // Custom stats card
 function CustomStats({ value, label, description }) {
   return (
-    <div className="stats bg-purple-300 shadow">
+    <div className="stats bg-sky-300 shadow">
       <div className="stat">
         {label && <div className="stat-title">{label}</div>}
 

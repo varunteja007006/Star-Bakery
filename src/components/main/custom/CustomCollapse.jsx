@@ -4,10 +4,10 @@
 function CustomCollapse({ label, children, customClass }) {
   return (
     <div
-      className={`collapse my-5 border border-purple-300 shadow-md ${customClass}`}
+      className={`collapse my-5 border border-sky-300 shadow-md ${customClass}`}
     >
       <input type="checkbox" />
-      <div className="collapse-title bg-purple-300 text-xl font-medium shadow-sm">
+      <div className="collapse-title bg-sky-300 text-xl font-medium shadow-sm">
         {label}
       </div>
       <div className="collapse-content">{children}</div>

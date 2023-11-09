@@ -27,6 +27,7 @@ const initialState = {
   ...initialFiltersState,
 };
 
+// get all orders
 export const getAllOrders = createAsyncThunk(
   "dashboard/allOrders",
   async (_, thunkAPI) => {
@@ -42,6 +43,7 @@ export const getAllOrders = createAsyncThunk(
   }
 );
 
+// get orders by applying filter
 export const getOrdersByFilter = createAsyncThunk(
   "dashboard/filteredOrders",
   async (_, thunkAPI) => {
@@ -58,8 +60,6 @@ export const getOrdersByFilter = createAsyncThunk(
     let url =
       import.meta.env.VITE_API_URL +
       `orders?skip=${skip}&limit=${limit}&startDate=${startDate}&endDate=${endDate}&orderState=${orderStateFilter}&itemType=${itemTypeFilter}&sort=${sort}`;
-
-    console.log(url);
 
     try {
       const response = await axios.get(url);
@@ -118,6 +118,8 @@ const ordersSlice = createSlice({
         state.orders = filteredOrders;
         state.itemTypeStats = filteredStats.itemTypeStats;
         state.orderStateStats = filteredStats.orderStateStats;
+        state.totalOrdersData = filteredStats.totalOrdersData;
+        state.totalRevenueData = filteredStats.totalRevenueData;
       })
       .addCase(getOrdersByFilter.rejected, (state, { payload }) => {
         state.isLoading = false;

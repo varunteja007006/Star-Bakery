@@ -11,7 +11,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
-function CustomBarChart({ data }) {
+function CustomBarChart({ data, barColor = "#000000" }) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} margin={{ top: 50 }}>
@@ -19,7 +19,7 @@ function CustomBarChart({ data }) {
         <XAxis dataKey="name" />
         <YAxis allowDecimals={false} />
         <Tooltip />
-        <Bar dataKey={"count"} fill="#b775ff" barSize={75} />
+        <Bar dataKey={"count"} fill={barColor} barSize={75} />
       </BarChart>
     </ResponsiveContainer>
   );

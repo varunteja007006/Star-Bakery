@@ -16,13 +16,13 @@ function CustomCard({
   const formattedDate = format(date, "	PPPppp");
 
   return (
-    <div className="p-5 border border-gray-500 rounded-md shadow-lg">
+    <div className="p-5 bg-sky-200 border border-gray-500 rounded-md shadow-lg">
       <span className="flex flex-col flex-wrap gap-3 items-left">
         <span className="flex flex-row flex-wrap gap-5 items-center">
           <p className="text-gray-600 text-lg font-bold capitalize">
             {customerID}
           </p>
-          <div className="badge bg-purple-300 p-3 font-semibold">
+          <div className="badge bg-yellow-300 p-3 font-semibold">
             {itemType}
           </div>
           {badge && (

@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className="navbar bg-purple-300">
+    <div className="navbar bg-sky-300">
       <div className="flex-1">
         <NavLink to={"/"} className="btn btn-ghost normal-case text-xl">
-          Star Bakery
+          Star Bakery ⭐
         </NavLink>
       </div>
       <div className="flex-none">
@@ -13,7 +13,7 @@ function Navbar() {
           <li>
             <NavLink
               to={"/createOrder"}
-              className="border border-gray-600 bg-purple-400 font-semibold"
+              className="border border-gray-600 bg-sky-100 font-semibold"
             >
               Create Order
             </NavLink>

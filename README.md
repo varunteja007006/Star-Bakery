@@ -1,8 +1,53 @@
-# React + Vite
+# Star Bakery ⭐
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Requirements to run the backend**
 
-Currently, two official plugins are available:
+.env file with the following data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    PORT = 4000
+    MONGO_URI = ''
+
+PORT can be modified as per the liking, MONGO_URI can be taken from mongodb.com.
+
+### Connecting with MongoDB Driver
+
+    - Select your driver and version: Node.js 2.2.12 or later
+    - Add your connection string into your application code: copy that string and paste it in MONGO_URI
+
+**Requirements to run the frontend**
+
+    VITE_API_URL = 'http://localhost:4000/api/'
+
+The port number should match with the backend port number.
+
+### Running the frontend
+
+In the project directory
+
+Install npm packages
+
+```
+npm install
+```
+
+Once installed run the frontend server
+
+```
+npm run dev
+```
+
+### Running the backend
+
+In the project directory
+
+Install npm packages
+
+```
+npm install
+```
+
+Once installed run the frontend server
+
+```
+npm run dev
+```

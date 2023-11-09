@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { CustomBarChart } from "../main/custom";
+import { CustomBarChart } from ".";
 
 function CustomBarChartContainer({ label, data }) {
   return (
@@ -7,7 +7,7 @@ function CustomBarChartContainer({ label, data }) {
       {data ? (
         <>
           <h3 className="text-lg">{label}</h3>
-          <CustomBarChart data={data} ></CustomBarChart>
+          <CustomBarChart data={data} barColor="#0369a1"></CustomBarChart>
         </>
       ) : (
         <>Oops, something went wrong....</>

@@ -10,7 +10,7 @@ function CustomDatePicker({ label, value, handleValueChange }) {
         </label>
       )}
       <Datepicker
-        primaryColor={"purple"}
+        primaryColor={"yellow"}
         value={value}
         onChange={handleValueChange}
         separator={"to"}

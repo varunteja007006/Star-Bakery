@@ -1,5 +1,7 @@
 # Star Bakery ⭐
 
+#### Demo link - https://starbakery.netlify.app/
+
 **Requirements to run the backend**
 
 .env file with the following data.

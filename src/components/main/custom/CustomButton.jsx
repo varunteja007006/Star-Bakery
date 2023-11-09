@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+// Custom button for using as different buttons
 function CustomButton({
   btnBGColor,
   customClass,

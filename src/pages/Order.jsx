@@ -15,6 +15,7 @@ function Order() {
     (store) => store.allOrders
   );
 
+  // creating a new order by sending request to db
   const createOrder = async (newOrder) => {
     try {
       const response = await axios.post(
@@ -28,6 +29,7 @@ function Order() {
     }
   };
 
+  // handle the form data for creating a new order
   const handleOrder = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -38,7 +40,7 @@ function Order() {
 
   return (
     <PageBody PageTitle={"Create Order"}>
-      <div className="flex flex-col gap-5 h-screen">
+      <div className="flex flex-col gap-5">
         <div className="w-4/5">
           <form onSubmit={handleOrder}>
             <span className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 items-center">
@@ -76,7 +78,14 @@ function Order() {
           </form>
         </div>
         <div className="mb-5 flex flex-wrap">
-          {data && <CustomCard {...data} />}
+          {data && (
+            <CustomCard
+              {...data}
+              badge={true}
+              badgeColor={"bg-green-300"}
+              badgeText={"New Order"}
+            />
+          )}
         </div>
       </div>
     </PageBody>

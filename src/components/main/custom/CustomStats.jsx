@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+// Custom stats card
 function CustomStats({ value, label, description }) {
   return (
     <div className="stats bg-purple-300 shadow">

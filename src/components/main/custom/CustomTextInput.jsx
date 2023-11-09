@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+// Custom text input field for using in multiple forms
 function CustomTextInput({
   label,
   placeholder,

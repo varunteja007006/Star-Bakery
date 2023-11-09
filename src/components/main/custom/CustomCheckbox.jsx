@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+// Custom check box for using in multiple forms
 function CustomCheckbox({ label, handleFunction, value, customCSS }) {
   return (
     <div className="form-control">

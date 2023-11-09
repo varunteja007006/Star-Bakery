@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 const productCost = [
   { product: "cake", cost: 500 },
   { product: "cookies", cost: 50 },
@@ -15,12 +16,23 @@ function getTopFiveBranches(branchCount) {
   });
 
   let branchStats = [];
-  for (let branch in sortedBranchs.splice(5)) {
-    branchStats.push({
-      name: sortedBranchs[branch][0],
-      count: sortedBranchs[branch][1],
-    });
+  if (sortedBranchs.length > 5) {
+    for (let branch in sortedBranchs.splice(0, 5)) {
+      branchStats.push({
+        name: sortedBranchs[branch][0],
+        count: sortedBranchs[branch][1],
+      });
+    }
+  } else {
+    for (let branch in sortedBranchs) {
+      branchStats.push({
+        name: sortedBranchs[branch][0],
+        count: sortedBranchs[branch][1],
+      });
+    }
+    console.log(false);
   }
+
   return branchStats;
 }
 
@@ -37,7 +49,7 @@ function modifyToArray(elementCount) {
   let newArr = [];
   // const elementArr = Object.keys(elementCount);
   for (let item in elementCount) {
-    newArr.push({ name: [item], count: elementCount[item] });
+    newArr.push({ name: item, count: elementCount[item] });
   }
   return newArr;
 }
@@ -72,7 +84,7 @@ function calculateRevenueAndOrders(data) {
   };
 }
 
-export default function getStats(data) {
+function getStats(data) {
   let itemTypeCount = {};
   let orderStateCount = {};
   let branchCount = {};
@@ -104,3 +116,4 @@ export default function getStats(data) {
   };
 }
 
+module.exports = { getStats };

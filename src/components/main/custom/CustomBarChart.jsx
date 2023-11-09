@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+// Custom bar chart for generating the bar charts
 import {
   BarChart,
   Bar,

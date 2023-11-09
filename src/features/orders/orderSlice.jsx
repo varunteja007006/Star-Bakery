@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import getStats from "./getStats";
 
 const initialFiltersState = {
   itemTypeFilter: "",
@@ -35,7 +34,7 @@ export const getAllOrders = createAsyncThunk(
     try {
       const response = await axios.get(url);
       const data = await response.data;
-      return { orders: data, stats: getStats(data) };
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -54,7 +53,7 @@ export const getOrdersByFilter = createAsyncThunk(
     try {
       const response = await axios.get(url);
       const data = await response.data;
-      return { filteredOrders: data, filteredStats: getStats(data) };
+      return data;
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +86,6 @@ const ordersSlice = createSlice({
         const { orders, stats } = { ...payload };
         state.isLoading = false;
         state.orders = orders;
-        // console.log(stats);
         state.itemTypeStats = stats.itemTypeStats;
         state.orderStateStats = stats.orderStateStats;
         state.branchStats = stats.branchStats;
@@ -104,7 +102,7 @@ const ordersSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getOrdersByFilter.fulfilled, (state, { payload }) => {
-        const { filteredOrders, filteredStats } = { ...payload };
+        const { orders: filteredOrders, stats: filteredStats } = { ...payload };
         state.isLoading = false;
         state.orders = filteredOrders;
         state.itemTypeStats = filteredStats.itemTypeStats;

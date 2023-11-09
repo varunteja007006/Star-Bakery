@@ -1,3 +1,4 @@
+// Custom skeleton card for showing when the card data is loading
 function CustomSkeleton() {
   return (
     <div className="border border-blue-300 shadow rounded-md p-4 max-w-sm w-full mx-auto h-56">

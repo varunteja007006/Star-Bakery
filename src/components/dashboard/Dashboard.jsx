@@ -6,6 +6,7 @@ import {
   CustomStats,
   CustomSkeleton,
   CustomSelectBox,
+  CustomAlert,
 } from "../main/custom";
 import CustomBarChartContainer from "./CustomBarChartContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,33 +35,53 @@ function Dashboard() {
 
   const dispatch = useDispatch();
 
+  // to handle the filter form
   const handleFilterForm = (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const filters = Object.fromEntries(formData);
     e.currentTarget.reset();
+
+    // dispatch the action and thunk API for filters
     dispatch(addFilters(filters));
     dispatch(getOrdersByFilter());
   };
 
+  // on initial render dispatch thunk API to fetch data
   useEffect(() => {
     dispatch(getAllOrders());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  //   if job results loading
+  //   if orders loading
   if (isLoading) {
-    return <progress className="progress w-56"></progress>;
+    return (
+      <div>
+        <progress className="progress w-56 mb-5"></progress>
+        <CustomAlert
+          content={"Please wait while we fetch your data"}
+          alertType={"bg-purple-200"}
+        ></CustomAlert>
+      </div>
+    );
   }
 
+  //   if orders are 0
   if (orders.length === 0) {
-    return <></>;
+    return (
+      <CustomAlert
+        content={"No data found"}
+        alertType={"alert-warning"}
+      ></CustomAlert>
+    );
   }
 
+  // if orders are available
   return (
     <>
       <span className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
         <h2 className="text-xl font-semibold mb-5">Dashboard</h2>
+
         <CustomButton
           label={"filter"}
           btnBGColor={"bg-purple-300"}
@@ -108,7 +129,6 @@ function Dashboard() {
           </div>
         </dialog>
       </span>
-
       {/* stats */}
       <div className="flex flex-wrap gap-5 items-center">
         <CustomStats
@@ -144,7 +164,6 @@ function Dashboard() {
           data={orderStateStats}
         ></CustomBarChartContainer>
       </CustomCollapse>
-
       {/* Order cards */}
       <CustomCollapse customClass={"mb-0"} label={`Orders - ${orders.length}`}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3 mb-5">

@@ -1,4 +1,6 @@
 /* eslint-disable react/prop-types */
+
+// Custom accordian
 function CustomCollapse({ label, children, customClass }) {
   return (
     <div

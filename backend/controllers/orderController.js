@@ -2,6 +2,7 @@
 
 const { default: mongoose } = require("mongoose");
 const Order = require("../models/orderModel");
+const { getStats } = require("../utils/getStats");
 
 //get all orders
 const getOrders = async (req, res) => {
@@ -29,7 +30,8 @@ const getOrders = async (req, res) => {
     .limit(query.limit)
     .sort(query.sort);
   if (orders) {
-    return res.status(200).json(orders);
+    const stats = getStats(orders);
+    return res.status(200).json({ orders, stats });
   } else {
     return res.status(400).json({
       error: "Something went wrong. Unable to fetch data from server",

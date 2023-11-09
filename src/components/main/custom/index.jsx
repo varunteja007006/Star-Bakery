@@ -8,6 +8,8 @@ import CustomStats from "./CustomStats";
 import CustomCheckbox from "./CustomCheckbox";
 import CustomCollapse from "./CustomCollapse";
 import CustomSkeleton from "./CustomSkeleton";
+import CustomAlert from "./CustomAlert";
+import CustomDatePicker from "./CustomDatePicker";
 
 export {
   PageBody,
@@ -20,4 +22,6 @@ export {
   CustomCheckbox,
   CustomCollapse,
   CustomSkeleton,
+  CustomAlert,
+  CustomDatePicker,
 };

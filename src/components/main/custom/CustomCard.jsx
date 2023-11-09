@@ -2,7 +2,16 @@
 import format from "date-fns/format";
 import { memo } from "react";
 
-function CustomCard({ itemType, orderState, branch, customerID, updatedAt }) {
+function CustomCard({
+  itemType,
+  orderState,
+  branch,
+  customerID,
+  updatedAt,
+  badge,
+  badgeColor,
+  badgeText,
+}) {
   const date = new Date(updatedAt);
   const formattedDate = format(date, "	PPPppp");
 
@@ -16,6 +25,11 @@ function CustomCard({ itemType, orderState, branch, customerID, updatedAt }) {
           <div className="badge bg-purple-300 p-3 font-semibold">
             {itemType}
           </div>
+          {badge && (
+            <div className={`badge ${badgeColor} p-3 font-semibold`}>
+              {badgeText}
+            </div>
+          )}
         </span>
         <div className="join join-vertical">
           <p className="text-gray-600 text-sm me-1 font-bold">Branch:</p>

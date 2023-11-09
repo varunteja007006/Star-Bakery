@@ -68,11 +68,11 @@ const getOrders = async (req, res) => {
 const getOrder = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "no such sample" });
+    return res.status(404).json({ error: "no such order" });
   }
   const order = await Order.findById(id);
   if (!order) {
-    return res.status(404).json({ error: "no such sample" });
+    return res.status(404).json({ error: "no such order" });
   }
   res.status(200).json(order);
 };

@@ -3,7 +3,7 @@
 // Custom stats card
 function CustomStats({ value, label, description, customClass }) {
   return (
-    <div className={`stats shadow ${customClass ? "" : "bg-sky-300 "}`}>
+    <div className={`stats shadow ${customClass ? "" : "bg-sky-300 dark:text-black"}`}>
       <div className="stat">
         {label && <div className="stat-title text-black">{label}</div>}
 

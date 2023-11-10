@@ -9,7 +9,11 @@ function CustomButton({
   handleFunction,
 }) {
   return (
-    <button type={type} onClick={handleFunction} className={`btn my-5 ${btnBGColor} ${customClass}`}>
+    <button
+      type={type}
+      onClick={handleFunction}
+      className={`btn my-5 ${btnBGColor} ${customClass} dark:text-black`}
+    >
       {label}
     </button>
   );

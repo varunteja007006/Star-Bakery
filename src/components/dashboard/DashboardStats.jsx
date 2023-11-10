@@ -14,6 +14,7 @@ function DashboardStats() {
           label={"Total Revenue"}
           value={`₹ ${totalRevenue}`}
         ></CustomStats>
+
         <CustomStats
           label={"Total Orders"}
           value={`${totalOrders}`}

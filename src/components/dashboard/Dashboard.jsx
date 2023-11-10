@@ -97,7 +97,7 @@ function Dashboard() {
       {/* Page menu */}
 
       {/* <div className="flex flex-row flex-wrap gap-5 items-center align-top justify-between"> */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-2 lg:gap-4">
         {/* Filters box */}
         <div className="bg-sky-200 p-3 px-5 text-gray-700 rounded-lg mb-5 justify-stretch">
           <p>
@@ -143,7 +143,7 @@ function Dashboard() {
             }}
           ></CustomButton>
           <dialog id="filter_modal" className="modal">
-            <div className="modal-box">
+            <div className="modal-box dark:bg-white">
               <form method="dialog">
                 {/* if there is a button in form, it will close the modal */}
                 <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
@@ -153,7 +153,7 @@ function Dashboard() {
               <h3 className="font-bold text-lg mb-5">Select Filters</h3>
               <form
                 onSubmit={handleFilterForm}
-                className="flex flex-col justify-around "
+                className="flex flex-col justify-around"
               >
                 <CustomDatePicker
                   label="Filter by dates"
@@ -175,12 +175,14 @@ function Dashboard() {
                   value={orderStateFilter}
                   options={orderStateOptions}
                 ></CustomSelectBox>
-                <span className="gap-5 items-center flex flex-col lg:flex-row">
+                <span className="lg:gap-5 items-center flex flex-col lg:flex-row">
                   <CustomButton
                     type={"submit"}
                     label={"Apply Filters"}
                     btnBGColor={"bg-green-300"}
-                    customClass={"btn mt-5 hover:bg-green-400  w-fit"}
+                    customClass={
+                      "btn mt-5 mb-0 lg:mb-5 hover:bg-green-400 w-fit"
+                    }
                   ></CustomButton>
                   <CustomButton
                     type={"button"}

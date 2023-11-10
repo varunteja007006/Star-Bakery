@@ -3,7 +3,7 @@
 // Custom alerts to show alerts to the user
 function CustomAlert({ content, alertType }) {
   return (
-    <div className={`alert ${alertType}`}>
+    <div className={`alert ${alertType} dark:text-black`}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="stroke-current shrink-0 h-6 w-6"

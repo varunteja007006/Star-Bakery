@@ -11,7 +11,7 @@ function CustomSelectBox({ label, options, name, id, value }) {
   };
 
   return (
-    <div className="form-control w-full max-w-xs">
+    <div className="form-control w-full max-w-xs ">
       <label className="label">
         <span className="label-text text-lg capitalize">{label}</span>
       </label>
@@ -19,7 +19,7 @@ function CustomSelectBox({ label, options, name, id, value }) {
         name={name}
         id={id}
         value={defaultValue}
-        className="select select-bordered capitalize"
+        className="select select-bordered capitalize dark:bg-white"
         onChange={handleValueChange}
       >
         <option value={""}>None</option>

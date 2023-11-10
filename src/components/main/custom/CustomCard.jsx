@@ -25,11 +25,13 @@ function CustomCard({
           <div className="flex flex-row flex-wrap gap-5 items-center">
             <p className="text-lg font-bold capitalize">{customerID}</p>
 
-            <div className="badge bg-yellow-300 p-3 font-semibold">
+            <div className="badge bg-yellow-300 p-3 font-semibold dark:text-black">
               {itemType}
             </div>
             {badge && (
-              <div className={`badge ${badgeColor} p-3 font-semibold`}>
+              <div
+                className={`badge ${badgeColor} p-3 font-semibold dark:text-black`}
+              >
                 {badgeText}
               </div>
             )}

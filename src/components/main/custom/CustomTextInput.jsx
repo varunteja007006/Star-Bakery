@@ -20,7 +20,7 @@ function CustomTextInput({
         type="text"
         placeholder={placeholder}
         value={value}
-        className="input input-bordered w-full max-w-xs"
+        className="input input-bordered w-full max-w-xs dark:bg-white"
         onChange={handleFunction}
       />
     </div>

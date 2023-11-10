@@ -2,6 +2,8 @@
 
 #### Demo link - https://starbakery.netlify.app/
 
+Frontend hosted on the Netlify platform, backend is hosted on the Google Cloud Platform as Cloud Run (Which is a containerized deployment).  
+
 **Requirements to run the backend**
 
 .env file with the following data.

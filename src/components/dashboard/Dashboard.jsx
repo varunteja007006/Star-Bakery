@@ -23,6 +23,8 @@ import {
   getOrdersByFilter,
 } from "../../features/orders/orderSlice";
 
+import format from "date-fns/format";
+
 function Dashboard() {
   const {
     // filter data state values
@@ -63,6 +65,19 @@ function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  let fromDate = "";
+  let toDate = "";
+
+  if (startDate !== "") {
+    const date = new Date(startDate);
+    //format MMM do,YYYY HH mm
+    fromDate = format(date, "do MMM, yyyy; HH:mm");
+  }
+  if (endDate !== "") {
+    const date = new Date(endDate);
+    toDate = format(date, "do MMM, yyyy; HH:mm");
+  }
+
   //   if orders loading
   if (isLoading) {
     return (
@@ -81,9 +96,34 @@ function Dashboard() {
     <>
       {/* Page menu */}
 
-      <div className="flex flex-row flex-wrap gap-5 items-center align-top justify-between">
-        <div></div>
-        <div>
+      {/* <div className="flex flex-row flex-wrap gap-5 items-center align-top justify-between"> */}
+      <div className="grid grid-cols-2 gap-4">
+        {/* Filters box */}
+        <div className="bg-sky-200 p-3 px-5 text-gray-700 rounded-lg mb-5 justify-stretch">
+          <p>
+            <span className="font-semibold">Filters Applied</span>
+          </p>
+          <div className="grid grid-cols-2 gap-2 content-start mt-2">
+            <p>
+              <span className=" font-semibold">Item :</span>{" "}
+              {itemTypeFilter ? ` ${itemTypeFilter}` : "All"}
+            </p>
+            <p>
+              <span className=" font-semibold">Order Status:</span>{" "}
+              {orderStateFilter ? ` ${orderStateFilter}` : "All"}
+            </p>
+            <p>
+              <span className=" font-semibold">From Date:</span>{" "}
+              {fromDate ? ` ${fromDate}` : "None"}
+            </p>
+            <p>
+              <span className=" font-semibold ">To Date:</span>{" "}
+              {toDate ? ` ${toDate}` : "None"}
+            </p>
+          </div>
+        </div>
+        {/* Filter buttons */}
+        <div className="self-end justify-self-end">
           <CustomButton
             label={showStats ? "Hide stats" : "Show stats"}
             btnBGColor={"bg-yellow-300"}

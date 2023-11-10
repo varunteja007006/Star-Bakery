@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 
 import {
   CustomButton,
-  CustomCard,
   CustomCollapse,
-  CustomStats,
-  CustomSkeleton,
   CustomSelectBox,
   CustomAlert,
   CustomDatePicker,
-  CustomBarChartContainer,
 } from "../main/custom";
+
+import {
+  DashboardCards,
+  DashboardOrderDetails,
+  DashboardStats,
+  DashboardRevenueOrders,
+} from "./";
 
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -33,13 +36,6 @@ function Dashboard() {
     // data state values
     orders,
     isLoading,
-    totalOrders,
-    totalRevenue,
-    itemTypeStats,
-    totalOrdersData,
-    totalRevenueData,
-    orderStateStats,
-    branchStats,
   } = useSelector((store) => store.allOrders);
   const dispatch = useDispatch();
 
@@ -168,39 +164,14 @@ function Dashboard() {
       {showStats && (
         <div className="border border-gray-400 p-2 md:p-5 rounded-lg shadow-md">
           <h2 className="text-xl mb-5">Stats</h2>
-          <div>
-            <div className="flex flex-wrap gap-5 items-center">
-              <CustomStats
-                label={"Total Revenue"}
-                value={`₹ ${totalRevenue}`}
-              ></CustomStats>
-              <CustomStats
-                label={"Total Orders"}
-                value={`${totalOrders}`}
-              ></CustomStats>
-            </div>
-            {/* bar graph top 5 branches */}
-            <CustomBarChartContainer
-              label={"Top 5 Branches"}
-              data={branchStats}
-            ></CustomBarChartContainer>
-          </div>
+          <DashboardStats />
         </div>
       )}
 
-      {/* Stats for filter  */}
+      {/* Revenue and Orders charts  */}
 
       <CustomCollapse label={"Revenue & Orders"}>
-        <span className="grid grid-cols-1 lg:grid-cols-2">
-          <CustomBarChartContainer
-            label={"Revenue"}
-            data={totalRevenueData}
-          ></CustomBarChartContainer>
-          <CustomBarChartContainer
-            label={"Orders"}
-            data={totalOrdersData}
-          ></CustomBarChartContainer>
-        </span>
+        <DashboardRevenueOrders />
       </CustomCollapse>
 
       {/* render data depending on number of orders */}
@@ -212,30 +183,17 @@ function Dashboard() {
         ></CustomAlert>
       ) : (
         <span>
+          {/* Order Details */}
           <CustomCollapse label={"Order Details"}>
-            <CustomBarChartContainer
-              label={"Order Item Types"}
-              data={itemTypeStats}
-            ></CustomBarChartContainer>
-            <CustomBarChartContainer
-              label={"Order Status"}
-              data={orderStateStats}
-            ></CustomBarChartContainer>
+            <DashboardOrderDetails />
           </CustomCollapse>
+
           {/* Order cards */}
           <CustomCollapse
             customClass={"mb-0"}
             label={`Orders - ${orders.length}`}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-3 mb-5">
-              {orders.length > 0 ? (
-                orders.map((item, index) => {
-                  return <CustomCard key={index} {...item}></CustomCard>;
-                })
-              ) : (
-                <CustomSkeleton></CustomSkeleton>
-              )}
-            </div>
+            <DashboardCards />
           </CustomCollapse>
         </span>
       )}

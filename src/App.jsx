@@ -5,7 +5,7 @@ import { Home, Order, OrderDetails } from "./pages";
 function App() {
   return (
     <BrowserRouter>
-      <main className="h-full text-black bg-sky-100">
+      <main className="h-full text-black bg-sky-100 dark:text-black">
         <Navbar></Navbar>
         <Routes>
           <Route index path="/" element={<Home></Home>}></Route>

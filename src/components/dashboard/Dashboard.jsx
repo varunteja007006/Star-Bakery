@@ -216,8 +216,12 @@ function Dashboard() {
         <DashboardRevenueOrders />
       </CustomCollapse>
 
-      {/* render data depending on number of orders */}
+      {/* Order Details */}
+      <CustomCollapse label={"Order Details"}>
+        <DashboardOrderDetails />
+      </CustomCollapse>
 
+      {/* render data depending on number of orders */}
       {orders.length === 0 ? (
         <CustomAlert
           content={"No data found"}
@@ -225,11 +229,6 @@ function Dashboard() {
         ></CustomAlert>
       ) : (
         <span>
-          {/* Order Details */}
-          <CustomCollapse label={"Order Details"}>
-            <DashboardOrderDetails />
-          </CustomCollapse>
-
           {/* Order cards */}
           <CustomCollapse
             customClass={"mb-0"}

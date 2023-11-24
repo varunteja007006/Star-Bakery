@@ -32,7 +32,7 @@
 
   {
     "itemType": "cake",
-    "orderState": "canceled",
+    "orderState": "cancelled",
     "branch": "Brazil",
     "customerID": "cus123"
   },
@@ -80,7 +80,7 @@
   },
   {
     "itemType": "cake",
-    "orderState": "canceled",
+    "orderState": "cancelled",
     "branch": "Mexico",
     "customerID": "cus2122"
   },
@@ -110,7 +110,7 @@
   },
   {
     "itemType": "cake",
-    "orderState": "canceled",
+    "orderState": "cancelled",
     "branch": "Peru",
     "customerID": "cus3132"
   },
